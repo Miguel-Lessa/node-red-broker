@@ -1,4 +1,4 @@
-# 🚀 Node-RED – Broker Catalog + Zip Code Searcher (BrasilAPI)
+#  Node-RED – Broker Catalog + Zip Code Searcher (BrasilAPI)
 
 Este projeto consiste em uma aplicação construída no **Node-RED** que utiliza dados da **BrasilAPI**.
 
@@ -36,22 +36,31 @@ https://nodejs.org/
 ### 2. Instale o Node-RED
 ```sh
 npm install -g node-red
+```
 
 3. Inicie o Node-RED
 
+```sh
+
+
 node-red
+
+```
 
 4. Acesse no navegador
 
+```sh
 http://localhost:1880
 
-Importando o Flow no Node-RED
+```
 
-    Copie o JSON de flows.json
+### 3. Importe o Flow no Node-RED
 
-    Selecione Import  Clipboard
+1- Copie o JSON de flows.json
 
-    Cole o conteúdo do JSON
+2-    Selecione Import  Clipboard
 
-    Clique em Import
+   3-  Cole o conteúdo do JSON
+
+   4- Clique em Import
 
