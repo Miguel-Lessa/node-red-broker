@@ -1,0 +1,256 @@
+[
+    {
+        "id": "817d1d56a2dcdf0a",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6d901d7d38750ea1",
+        "type": "http in",
+        "z": "817d1d56a2dcdf0a",
+        "name": "Route /brokers",
+        "url": "/brokers",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [
+                "e5e6bba3be86df22"
+            ]
+        ]
+    },
+    {
+        "id": "e5e6bba3be86df22",
+        "type": "http request",
+        "z": "817d1d56a2dcdf0a",
+        "name": "GET BrasilAPI Brokers",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://brasilapi.com.br/api/cvm/corretoras/v1",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 360,
+        "y": 180,
+        "wires": [
+            [
+                "769ceabce94ed508"
+            ]
+        ]
+    },
+    {
+        "id": "769ceabce94ed508",
+        "type": "template",
+        "z": "817d1d56a2dcdf0a",
+        "name": "HTML Brokers",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Lista de Corretoras</title>\n    <style>\n        body { font-family: Arial, sans-serif; background: #f3f3f3; padding: 20px; }\n        .card { background: white; padding: 15px; margin-bottom: 10px; border-radius: 6px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }\n    </style>\n</head>\n<body>\n    <h2>Lista de Corretoras</h2>\n\n    {{#payload}}\n        <div class=\"card\">\n            <strong>{{nome_social}}</strong><br>\n            {{municipio}} / {{cnpj}} / {{cep}}\n        </div>\n    {{/payload}}\n\n    {{^payload}}\n        <p>Nenhum dado retornado.</p>\n    {{/payload}}\n\n</body>\n</html>",
+        "x": 570,
+        "y": 180,
+        "wires": [
+            [
+                "16edb73fe57b1b15"
+            ]
+        ]
+    },
+    {
+        "id": "16edb73fe57b1b15",
+        "type": "http response",
+        "z": "817d1d56a2dcdf0a",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 790,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "42efb2186535c4f8",
+        "type": "http in",
+        "z": "817d1d56a2dcdf0a",
+        "name": "Route /cep",
+        "url": "/cep",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 300,
+        "wires": [
+            [
+                "7c8a6876f00a380a"
+            ]
+        ]
+    },
+    {
+        "id": "7c8a6876f00a380a",
+        "type": "template",
+        "z": "817d1d56a2dcdf0a",
+        "name": "HTML Form",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"pt-BR\">\n\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Busca de CEP</title>\n    <style>\n        body {\n            font-family: Arial, sans-serif;\n            background: #f3f3f3;\n            padding: 20px;\n        }\n\n        .card {\n            background: white;\n            padding: 20px;\n            border-radius: 6px;\n            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);\n            width: 350px;\n        }\n\n        input {\n            padding: 8px;\n            width: 90%;\n            margin-bottom: 10px;\n            border-radius: 4px;\n            border: 1px solid #ccc;\n        }\n\n        button {\n            width: 100%;\n            padding: 10px;\n            border-radius: 4px;\n            border: none;\n            background: #007bff;\n            color: white;\n            cursor: pointer;\n        }\n\n        button:hover {\n            background: #005fcc;\n        }\n    </style>\n</head>\n\n<body>\n    <h2>Busca de CEP</h2>\n\n    <div class=\"card\">\n        <form action=\"/search-cep\" method=\"GET\">\n            <input type=\"text\" name=\"zipcode\" placeholder=\"Digite o CEP (somente números)\" required>\n            <button type=\"submit\">Buscar</button>\n        </form>\n    </div>\n\n</body>\n\n</html>",
+        "x": 370,
+        "y": 300,
+        "wires": [
+            [
+                "b8a9f1ecd216148f"
+            ]
+        ]
+    },
+    {
+        "id": "b8a9f1ecd216148f",
+        "type": "http response",
+        "z": "817d1d56a2dcdf0a",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 590,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "84b5a39f31efbbef",
+        "type": "http in",
+        "z": "817d1d56a2dcdf0a",
+        "name": "Route /search-cep",
+        "url": "/search-cep",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 400,
+        "wires": [
+            [
+                "74e579bfcfb5b46b"
+            ]
+        ]
+    },
+    {
+        "id": "74e579bfcfb5b46b",
+        "type": "function",
+        "z": "817d1d56a2dcdf0a",
+        "name": "Extract CEP",
+        "func": "msg.cep = msg.req.query.zipcode;\nmsg.url = `https://brasilapi.com.br/api/cep/v2/${msg.cep}`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 400,
+        "wires": [
+            [
+                "86f18e3e65c35cbf"
+            ]
+        ]
+    },
+    {
+        "id": "86f18e3e65c35cbf",
+        "type": "http request",
+        "z": "817d1d56a2dcdf0a",
+        "name": "GET CEP BrasilAPI",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 560,
+        "y": 400,
+        "wires": [
+            [
+                "f66af2df5c286553"
+            ]
+        ]
+    },
+    {
+        "id": "f66af2df5c286553",
+        "type": "template",
+        "z": "817d1d56a2dcdf0a",
+        "name": "HTML CEP Result",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"pt-BR\">\n\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Resultado CEP</title>\n    <style>\n        body {\n            font-family: Arial, sans-serif;\n            background: #f3f3f3;\n            padding: 20px;\n        }\n\n        .card {\n            background: white;\n            padding: 20px;\n            border-radius: 6px;\n            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);\n            width: 350px;\n        }\n\n        a {\n            display: inline-block;\n            margin-top: 10px;\n            color: #007bff;\n            text-decoration: none;\n        }\n\n        a:hover {\n            text-decoration: underline;\n        }\n\n        .error {\n            color: red;\n            font-weight: bold;\n        }\n    </style>\n</head>\n\n<body>\n\n    <h2>Resultado da Busca</h2>\n\n    <div class=\"card\">\n\n        {{#error}}\n        <p class=\"error\">Erro: {{message}}</p>\n        {{/error}}\n\n        {{^error}}\n        <p><strong>CEP:</strong> {{payload.cep}}</p>\n        <p><strong>Estado:</strong> {{payload.state}}</p>\n        <p><strong>Cidade:</strong> {{payload.city}}</p>\n        <p><strong>Rua:</strong> {{payload.street}}</p>\n        <p><strong>Bairro:</strong> {{payload.neighborhood}}</p>\n        {{/error}}\n\n        <a href=\"/cep\">Voltar</a>\n    </div>\n\n</body>\n\n</html>",
+        "x": 760,
+        "y": 400,
+        "wires": [
+            [
+                "724ce9e06e648244"
+            ]
+        ]
+    },
+    {
+        "id": "724ce9e06e648244",
+        "type": "http response",
+        "z": "817d1d56a2dcdf0a",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 980,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "4ea7519cecb822ca",
+        "type": "http in",
+        "z": "817d1d56a2dcdf0a",
+        "name": "Route /cep/:zipcode",
+        "url": "/cep/:zipcode",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 500,
+        "wires": [
+            [
+                "d85efc30a22d1ade"
+            ]
+        ]
+    },
+    {
+        "id": "d85efc30a22d1ade",
+        "type": "function",
+        "z": "817d1d56a2dcdf0a",
+        "name": "Extract Param",
+        "func": "msg.url = `https://brasilapi.com.br/api/cep/v2/${msg.req.params.zipcode}`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 500,
+        "wires": [
+            [
+                "86f18e3e65c35cbf"
+            ]
+        ]
+    }
+]
