@@ -64,3 +64,34 @@ http://localhost:1880
 
    4- Clique em Import
 
+
+### 4. Como rodar o projeto usando Docker Compose 
+
+Docker e Docker Compose instalados.
+
+Dentro da pasta do projeto, execute:
+
+```sh
+docker compose up
+```
+
+Quando o container iniciar, acesse no navegador:
+
+```sh
+http://localhost:1880
+
+```
+
+
+1- Copie o JSON de flows.json
+
+2-    Selecione Import  Clipboard
+
+   3-  Cole o conteúdo do JSON
+
+   4- Clique em Import
+
+
+
+
+
