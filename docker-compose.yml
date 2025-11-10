@@ -6,6 +6,6 @@ services:
     ports:
       - "1880:1880"
     volumes:
-      - ./data:/data
+      - ./data:/data:z
     environment:
       - TZ=America/Sao_Paulo
